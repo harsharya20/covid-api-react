@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import './Covid.css'
 const Covid = () => {
+
+    const [data, setData ] = useState([]);
    const getCovidData = async () => {
        try {
         const res = await fetch('https://data.covid19india.org/data.json');
         const actualData =await res.json();
+        setData(actualData.statewise[0]);
        }
        catch(err){
            console.log(err);
@@ -13,7 +16,7 @@ const Covid = () => {
    }
 
     useEffect(() => {
-        //getCovidData();
+        getCovidData();
     }, []);
   return (
     <>
@@ -35,7 +38,7 @@ const Covid = () => {
             <div className='card_main'>
                 <div className='card_inner'>
                     <p className='card_name'><span>TOTAL</span> RECOVERED </p>
-                    <p className='card_total card_small'>INDIA</p>
+                    <p className='card_total card_small'>{data.recovered}</p>
                 </div>
             </div>
             
@@ -44,7 +47,7 @@ const Covid = () => {
             <div className='card_main'>
                 <div className='card_inner'>
                     <p className='card_name'><span>TOTAL</span> CONFIRMED </p>
-                    <p className='card_total card_small'>INDIA</p>
+                    <p className='card_total card_small'>{data.confirmed}</p>
                 </div>
             </div>
             
@@ -53,7 +56,7 @@ const Covid = () => {
             <div className='card_main'>
                 <div className='card_inner'>
                     <p className='card_name'><span>TOTAL</span> DEATH </p>
-                    <p className='card_total card_small'>INDIA</p>
+                    <p className='card_total card_small'>{data.deaths}</p>
                 </div>
             </div>
             
@@ -62,7 +65,7 @@ const Covid = () => {
             <div className='card_main'>
                 <div className='card_inner'>
                     <p className='card_name'><span>TOTAL</span> ACTIVE </p>
-                    <p className='card_total card_small'>INDIA</p>
+                    <p className='card_total card_small'>{data.active}</p>
                 </div>
             </div>
             
@@ -71,7 +74,7 @@ const Covid = () => {
             <div className='card_main'>
                 <div className='card_inner'>
                     <p className='card_name'><span>LAST</span> UPDATED </p>
-                    <p className='card_total card_small'>INDIA</p>
+                    <p className='card_total card_small'>{data.lastupdatedtime}</p>
                 </div>
             </div>
             
